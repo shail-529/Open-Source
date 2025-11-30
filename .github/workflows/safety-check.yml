@@ -1,0 +1,23 @@
+name: Safety Check
+on:
+  pull_request:
+    branches: [ "main" ]
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Run a Test Script
+        run: |
+          echo "Starting safety checks..."
+          if [ -f "README.md" ]; then
+            echo "SUCCESS: README.md found!"
+          else
+            echo "ERROR: README.md is missing!"
+            exit 1
+          fi
